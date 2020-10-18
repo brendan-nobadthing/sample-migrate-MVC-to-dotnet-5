@@ -1,0 +1,42 @@
+﻿@using MigrateFrom4.Models
+@model MigrateFrom4.Models.WeatherVm
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm("GetWeather", "Weather"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>WeatherVm</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.WeatherRequest.CityName)
+            @Html.TextBoxFor(m => m.WeatherRequest.CityName)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.WeatherData != null)
+{
+    <div>
+        <b>Description:</b> @Model.WeatherData.Description <br/>
+        <b>Temperature:</b> @Model.WeatherData.Temp
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
